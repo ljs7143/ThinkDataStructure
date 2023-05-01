@@ -50,7 +50,9 @@ public class MyArrayList<T> implements List<T> {
 		if(size >= array.length){
 			//큰 배열을 만들고 요소들을 복사함
 			T[] bigger = (T[]) new Object[array.length*2];
-			System.arraycopy(array, 0, bigger, 0, array.length);
+			System.arraycopy(array, 0, bigger, 0, array.length); //--->위메서드 호출 시 실행시간이 배열의 크기에 비레하기 때문에 선형
+
+
 			array = bigger;
 		}
 		array[size] = element;
@@ -61,6 +63,10 @@ public class MyArrayList<T> implements List<T> {
 	@Override
 	public void add(int index, T element) {
 
+
+	
+		//선형메서드 
+		//크기를 변경 안해줘도 되는 이유는 arrayList이기 때문임   
 		//중간에 삽입가능한 add메소드임
 		if (index < 0 || index > size) {
 			throw new IndexOutOfBoundsException();
@@ -121,12 +127,13 @@ public class MyArrayList<T> implements List<T> {
 		return array[index];
 	}
 	@Override
+	//평균적으로 n/2가 기대됨으로 선형메서드임 
 	public int indexOf(Object target) {
 		// TODO: FILL THIS IN!
 		//값이 없으면 -1을 반환해야함
 		//아니면 index에 해당하는 값을 반환해야함
-		for(int i=0; i< array.length; i++){
-			if(array[i].equals(target)){
+		for(int i=0; i< size; i++){
+			if(equals(target, array[i])){
 				return i;
 			}
 		}
@@ -140,6 +147,9 @@ public class MyArrayList<T> implements List<T> {
 	 * @param target
 	 * @param object
 	 */
+
+
+	
 	private boolean equals(Object target, Object element) {
 		if (target == null) {
 			return element == null;
@@ -202,7 +212,7 @@ public class MyArrayList<T> implements List<T> {
 	//if문을 돌릴 이유가 없음. 이미 index번호를 argument로 주기 때문에 시작을 index번호로 삼고 한칸씩 앞으로 당긴 후 사이즈를 줄이면 됨.
 	public T remove(int index) {
 		T element = get(index);
-		for(int i=index; i<array.length; i++){
+		for(int i=index; i<size-1; i++){
 			array[i] = array[i+1];
 		}
 		size--;
@@ -226,11 +236,17 @@ public class MyArrayList<T> implements List<T> {
 	@Override
 	//평균적으로 요소 개수의 절반을 테스트하길 기대함 >>> 선형
 	public T set(int index, T element) {
-		if (index < 0 || index >= size) {
-			throw new IndexOutOfBoundsException();
-		}
+		//1차 옵션
+		// if (index < 0 || index >= size) {
+		// 	throw new IndexOutOfBoundsException();
+		// }
+		// T old = get(index);
+		// array[index]= element;
+		// return old;
+
+		//2최적의 코드  --> 명시적으로 배열의 범위를 검사하지 않음. set메서드 또한 상수시간 
 		T old = get(index);
-		array[index]= element;
+		array[index] = element;
 		return old;
 	}
 	//내가 1차로 구현한 코드가 틀린 이유
