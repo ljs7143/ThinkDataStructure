@@ -1,5 +1,5 @@
 # ThinkDataStructure
-##self study of DataStructure
+## self study of DataStructure
 
 
-###what I learned 
+### what I learned 
