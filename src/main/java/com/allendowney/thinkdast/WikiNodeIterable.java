@@ -22,6 +22,9 @@ import org.jsoup.nodes.Node;
  */
 public class WikiNodeIterable implements Iterable<Node> {
 
+	//전통적인 공식을 따라야함
+	//1. 생성자는 루트 노드에 대한 참조를 인자로 받아 저장
+	//2. iterator 메서드는 Iterator 객체를 생성하여 반환함
 	private Node root;
 
 	/**
@@ -31,8 +34,7 @@ public class WikiNodeIterable implements Iterable<Node> {
 	 */
 	public WikiNodeIterable(Node root) {
 	    this.root = root;
-	}
-
+	}  // --> 인자로 받아 저장하는 코드
 	@Override
 	public Iterator<Node> iterator() {
 		return new WikiNodeIterator(root);

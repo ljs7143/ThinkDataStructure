@@ -10,7 +10,7 @@ import com.allendowney.thinkdast.Profiler.Timeable;
 
 public class ProfileListAdd {
 	
-₩	/**
+	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -46,6 +46,24 @@ public class ProfileListAdd {
 	 * Characterize the run time of adding to the beginning of an ArrayList
 	 */
 	public static void profileArrayListAddBeginning() {
+		Timeable timeable = new Timeable() {
+			List<String> list;
+
+			public void setup(int n) {
+				list = new ArrayList<String>();
+			}
+
+			public void timeMe(int n) {
+				for (int i=0; i<n; i++) {
+					list.add(0,"a string");
+				}
+			}
+		};
+		int startN = 4000;
+		int endMillis = 1000;
+		runProfiler("ArrayList add end", timeable, startN, endMillis);
+
+
 		// TODO: FILL THIS IN!
 	}
 
@@ -71,6 +89,7 @@ public class ProfileListAdd {
 
 				//실제 테스트 수행
 				for(int i=0; i<n; i++){
+					//0에 추가한다는 구문이 있으므로 beginning에 추가하는 코드가 됨
 					list.add(0, "a string");
 				}
 
@@ -87,6 +106,30 @@ public class ProfileListAdd {
 	 */
 	public static void profileLinkedListAddEnd() {
 		// TODO: FILL THIS IN!
+		Timeable timeable = new Timeable() {
+			List<String> list;
+			@Override
+			public void setup(int n) {
+				list= new LinkedList<String>();
+			}
+
+			@Override
+			public void timeMe(int n) {
+
+				for(int i = 0; i<n; i++){
+
+					//이게 리스트의 끝에 삽입하는 이유는 계속 뒤에 삽입하기 때문
+					//ListAddBeginning은 list.add(0,"a String") --> 이건 0번째 인덱스 즉 맨 앞에 계속 추가한다는 의미. 즉 서로 다름. 헷갈린 부분 이해 완료
+						list.add("a String");
+				}
+
+			}
+		};
+		int startN = 64000;
+		int endMills = 1000;
+		//첫번째 > 측정하려는 작업의 이름, 두번째 > 구현 객체, 세번째 > 매개변수 초기 입력 크기, 네번째 > 측정 시간 제한
+		runProfiler("LinkedList add end", timeable , startN, endMills);
+
 	}
 
 	/**

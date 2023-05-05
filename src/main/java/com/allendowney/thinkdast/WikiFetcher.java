@@ -65,6 +65,9 @@ public class WikiFetcher {
 	 * Rate limits by waiting at least the minimum interval between requests.
 	 */
 	private void sleepIfNeeded() {
+		//바로 앞 요청 이후 경과 시간을 검사하여 그 간격이 minInterval 미만이면 동작을 지연함
+
+
 		if (lastRequestTime != -1) {
 			long currentTime = System.currentTimeMillis();
 			long nextRequestTime = lastRequestTime + minInterval;

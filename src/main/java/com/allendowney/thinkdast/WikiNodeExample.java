@@ -23,7 +23,8 @@ public class WikiNodeExample {
 		// download and parse the document
 		Connection conn = Jsoup.connect(url);
 		Document doc = conn.get();
-		
+
+		//내용을 선택하고 단락 추출하기
 		// select the content text and pull out the paragraphs.
 		Element content = doc.getElementById("mw-content-text");
 				
@@ -37,6 +38,7 @@ public class WikiNodeExample {
 		iterativeDFS(firstPara);
 		System.out.println();
 
+		//TextNode에 대해서만 프린팅됨
 		Iterable<Node> iter = new WikiNodeIterable(firstPara);
 		for (Node node: iter) {
 			if (node instanceof TextNode) {
