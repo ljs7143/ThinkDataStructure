@@ -53,13 +53,22 @@ public class Index {
      * Prints the contents of the index.
      */
     public void printIndex() {
+
+
+        //Set은 중복을 허용하지 않는 자료구조이기 때문에, 각각의 검색어(term)가 한 번만 출력
+        // 그러나 Set 안에 들어있는 TermCounter 객체들은 서로 다른 문서(애초에 다른 url을 따왔으니깐)를 나타내기 때문에,
+        // 각각의 TermCounter 객체에서 검색어(term)가 나온 횟수(count)를 출력하면, 각 문서에서 검색어가 등장한 횟수를 알 수 있다.
+
+
+
         // loop through the search terms
-        for (String term: keySet()) {
+        for (String term: keySet()) { //Map의 요소 순환.
+
             //Set의 url에 term url이 포함되면 term(url)출력 --> Termcounter 객체를 보면 이해할 수 있음
             System.out.println(term);
 
             // for each term, print the pages where it appears
-            Set<TermCounter> tcs = get(term);
+            Set<TermCounter> tcs = get(term);    //애초에 get(term)에서 term이 중복을 허용하지 않는 다 다른 url이기 때문임
             for (TermCounter tc: tcs) {
                 Integer count = tc.get(term);
                 System.out.println("    " + tc.getLabel() + " " + count);
@@ -74,7 +83,8 @@ public class Index {
      */
     public Set<String> keySet() {
         return index.keySet();
-    }
+    }  //keySet()메서드를 통해 key값들을 모두 반환함. 이를 통해 key값 전체에 대한 작업을 수행할 수 있는데 예시는 indexPage메서드의 for문
+
 
     /**
      * Add a page to the index.

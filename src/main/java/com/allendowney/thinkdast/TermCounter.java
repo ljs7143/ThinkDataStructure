@@ -16,6 +16,8 @@ import org.jsoup.select.Elements;
  * @author downey
  *
  */
+
+//특정 문서에 대한 단어 빈도수 계산
 public class TermCounter {
 
 	private Map<String, Integer> map;
@@ -37,7 +39,11 @@ public class TermCounter {
 	 */
 	public int size() {
 		// TODO: FILL THIS IN!
-		return 0;
+		int total = 0;
+		for (Integer value: map.values()) {
+			total += value;
+		}
+		return total;
 	}
 
 	/**
@@ -80,7 +86,7 @@ public class TermCounter {
 		for (int i=0; i<array.length; i++) {
 			String term = array[i];
 			incrementTermCount(term);
-		}
+		}   //HTML문서에서 각 단어의 빈도수를 계산해주는 메서드
 	}
 
 	/**
@@ -141,8 +147,8 @@ public class TermCounter {
 	public static void main(String[] args) throws IOException {
 		String url = "https://en.wikipedia.org/wiki/Java_(programming_language)";
 
-		WikiFetcher wf = new WikiFetcher();
-		Elements paragraphs = wf.fetchWikipedia(url);
+		WikiFetcher wf = new WikiFetcher();  // 위키 페이지를 다운로드하고, 파싱하는 기능을 제공하여, 위키 페이지 데이터를 쉽게 수집할 수 있도록 도와줌
+		Elements paragraphs = wf.fetchWikipedia(url);  //fetchWikipedia 메서드는 주어진 페이지 제목(title)에 해당하는 위키 페이지를 다운로드하여, Elements 객체로 반환하는 기능을 제공
 
 		TermCounter counter = new TermCounter(url.toString());
 		counter.processElements(paragraphs);

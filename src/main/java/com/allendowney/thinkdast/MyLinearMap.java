@@ -64,6 +64,12 @@ public class MyLinearMap<K, V> implements Map<K, V> {
 	 */
 	private Entry findEntry(Object target) {
 		// TODO: FILL THIS IN!
+		//엔트리의 크기에 비례하므로 선형
+		for(Entry entry : entries){
+			if(equals(target, entry.getKey())){
+				return  entry;
+			}
+		}
 		return null;
 	}
 
@@ -75,6 +81,7 @@ public class MyLinearMap<K, V> implements Map<K, V> {
 	 * @return
 	 */
 	private boolean equals(Object target, Object obj) {
+		//equals메서드는 target과 key의 크기에 의존하지만 엔트리 개수에 희존하지 않으므로 상수 시간임
 		if (target == null) {
 			return obj == null;
 		}
@@ -99,7 +106,11 @@ public class MyLinearMap<K, V> implements Map<K, V> {
 	@Override
 	public V get(Object key) {
 		// TODO: FILL THIS IN!
-		return null;
+		Entry entry = findEntry(key);
+		if(entry == null){
+			return null;
+		}
+		return entry.getValue();
 	}
 
 	@Override
@@ -118,9 +129,18 @@ public class MyLinearMap<K, V> implements Map<K, V> {
 
 	@Override
 	public V put(K key, V value) {
-		// TODO: FILL THIS IN!
-		return null;
+		Entry entry = findEntry(key);  //엔트리를 key를 통해 찾음
+		//findEntry 메서드를 호출한 후에는 모두 상수 시간 
+		if(entry == null){ //없으면 새로 넣어줌
+			entries.add(new Entry(key, value));
+		}else {  //key값이 같은 entry가 있으면
+			V oldValue = entry.getValue(); //현재 key값에 따른 value값 저장
+			entry.setValue(value);  //entry값을 setValue해주어도 위의 변수 entries 또한 갱신됨.
+			return oldValue;
+									// 하지만 findEntry에서 이미 entries의 참조를 받으므로 entries도 갱신됨
+		}
 	}
+
 
 	@Override
 	public void putAll(Map<? extends K, ? extends V> map) {
@@ -132,7 +152,15 @@ public class MyLinearMap<K, V> implements Map<K, V> {
 	@Override
 	public V remove(Object key) {
 		// TODO: FILL THIS IN!
-		return null;
+		Entry entry = findEntry(key);
+		if(entry==null){
+			return null;
+		}else{
+			V value = entry.getValue(); //삭제한 값에 대해 저장 --> entry.getValue()인 이유는
+			//이미 findEntry에서 entries의 entry를 찾아왔기 때문에
+			entries.remove(entry); //하지만 삭제할 때는 우리가 갱신해줘야하는 대상인 entries에 삭제
+			return value;
+		}
 	}
 
 	@Override

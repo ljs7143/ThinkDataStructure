@@ -88,7 +88,7 @@ public class WikiFetcher {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
-		WikiFetcher wf = new WikiFetcher();
+		WikiFetcher wf = new WikiFetcher();  // 위키 페이지를 다운로드하고, 파싱하는 기능을 제공하여, 위키 페이지 데이터를 쉽게 수집할 수 있도록 도와줌
 		String url = "https://en.wikipedia.org/wiki/Java_(programming_language)";
 		Elements paragraphs = wf.readWikipedia(url);
 
