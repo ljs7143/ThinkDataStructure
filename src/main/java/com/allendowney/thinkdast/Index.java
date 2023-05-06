@@ -16,6 +16,7 @@ import org.jsoup.select.Elements;
  */
 public class Index {
 
+    //문자열을 키로 가지며 해당 문자열과 관련된 TermCounter 객체들의 집합(Set)을 값으로 가짐
     private Map<String, Set<TermCounter>> index = new HashMap<String, Set<TermCounter>>();
 
     /**
@@ -25,15 +26,15 @@ public class Index {
      * @param tc
      */
     public void add(String term, TermCounter tc) {
-        Set<TermCounter> set = get(term);
-
+        Set<TermCounter> set = get(term);   // 객체에서 주어진 키(term)에 해당하는 값(Set<TermCounter>)을 반환함. get은 argument의 key값에 대한 value를 반환해줌. 그래서 set(value) 값에 value가 들어갈 수 있도록
         // if we're seeing a term for the first time, make a new Set
         if (set == null) {
+            //없으면 객체를 생성하고 Map에 추가하는 과정
             set = new HashSet<TermCounter>();
             index.put(term, set);
         }
         // otherwise we can modify an existing Set
-        set.add(tc);
+        set.add(tc);  //이미 존재할 시 변경
     }
 
     /**
@@ -43,7 +44,9 @@ public class Index {
      * @return
      */
     public Set<TermCounter> get(String term) {
-        return index.get(term);
+
+        return index.get(term);   //검색어를 인자로 받아 그에 맞는 TermCounter 객체의 집합을 반환함
+
     }
 
     /**
@@ -52,6 +55,7 @@ public class Index {
     public void printIndex() {
         // loop through the search terms
         for (String term: keySet()) {
+            //Set의 url에 term url이 포함되면 term(url)출력 --> Termcounter 객체를 보면 이해할 수 있음
             System.out.println(term);
 
             // for each term, print the pages where it appears
@@ -80,6 +84,14 @@ public class Index {
      */
     public void indexPage(String url, Elements paragraphs) {
         // TODO: Your code here
+
+        TermCounter tc = new TermCounter(url);
+        tc.processElements(paragraphs);
+
+        for(String term : tc.keySet()){
+            add(term, tc);
+
+        }
 
         // make a TermCounter and count the terms in the paragraphs
 
