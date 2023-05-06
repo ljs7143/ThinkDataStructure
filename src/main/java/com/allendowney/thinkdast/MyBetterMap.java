@@ -16,6 +16,7 @@ import java.util.Set;
  * @param <V>
  *
  */
+//5.7에 시작할 것
 public class MyBetterMap<K, V> implements Map<K, V> {
 
 	// MyBetterMap uses a collection of MyLinearMap
