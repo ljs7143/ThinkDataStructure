@@ -1,8 +1,10 @@
 # ThinkDataStructure
 ## self study of DataStructure
-
+##  Details learned while studying are described in detail in the src/main code files as comments.
 
 ### what I learned 
+
+
 #### Comparing MyArrayList & MyLinkedList
 ##### Time complexity
 
