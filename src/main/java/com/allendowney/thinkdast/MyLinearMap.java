@@ -133,6 +133,7 @@ public class MyLinearMap<K, V> implements Map<K, V> {
 		//findEntry 메서드를 호출한 후에는 모두 상수 시간 
 		if(entry == null){ //없으면 새로 넣어줌
 			entries.add(new Entry(key, value));
+			return null;
 		}else {  //key값이 같은 entry가 있으면
 			V oldValue = entry.getValue(); //현재 key값에 따른 value값 저장
 			entry.setValue(value);  //entry값을 setValue해주어도 위의 변수 entries 또한 갱신됨.

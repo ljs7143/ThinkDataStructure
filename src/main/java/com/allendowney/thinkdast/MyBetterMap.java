@@ -36,7 +36,7 @@ public class MyBetterMap<K, V> implements Map<K, V> {
 	 * @param k
 	 */
 	protected void makeMaps(int k) {
-		maps = new ArrayList<MyLinearMap<K, V>>(k);
+		maps = new ArrayList<MyLinearMap<K, V>>(k);   //arrayList의 객체 Map을 생성할 수 있다
 		for (int i=0; i<k; i++) {
 			maps.add(new MyLinearMap<K, V>());
 		}
@@ -57,7 +57,8 @@ public class MyBetterMap<K, V> implements Map<K, V> {
 	 * @return
 	 */
 	protected MyLinearMap<K, V> chooseMap(Object key) {
-		int index = key==null ? 0 : Math.abs(key.hashCode()) % maps.size();
+		int index = key==null ? 0 : Math.abs(key.hashCode()) % maps.size();  //Math.abs(key.hashCode()) % maps.size()를 사용하여 해시 충돌을 최소화.해시 테이블의 크기로 나눈 나머지를 인덱스로 변환하기 때문에, 인덱스 값이 해시 테이블의 크기 내에서 고르게 분포
+																	//따라서, 인덱스 값이 고르게 분포되면, 해시 충돌이 발생할 확률이 줄어들어서 해시 테이블의 성능이 개선됩니다.
 		return maps.get(index);
 	}
 
