@@ -18,7 +18,7 @@ import java.util.Map;
 public class MyHashMap<K, V> extends MyBetterMap<K, V> implements Map<K, V> {
 
 	// average number of entries per map before we rehash
-	protected static final double FACTOR = 1.0;
+	protected static final double FACTOR = 1.0;  //재해시하기 전 하위 맵당 평균 엔트리 개수. 로드 팩터라고 함
 
 	@Override
 	public V put(K key, V value) {
@@ -27,7 +27,8 @@ public class MyHashMap<K, V> extends MyBetterMap<K, V> implements Map<K, V> {
 		//System.out.println("Put " + key + " in " + map + " size now " + map.size());
 
 		// check if the number of elements per map exceeds the threshold
-		if (size() > maps.size() * FACTOR) {
+
+		if (size() > maps.size() * FACTOR) {   //하위 맵당 엔트리의 개수가 임게치를 넘지 않는지 확인. 넘으면 rehash메소드 호출
 			rehash();
 		}
 		return oldValue;
@@ -39,7 +40,7 @@ public class MyHashMap<K, V> extends MyBetterMap<K, V> implements Map<K, V> {
 	/**
 	 *
 	 */
-	protected void rehash() {
+	protected void rehash() {  //내장된 맵의 개수 k가 두 배가 되어야 함
 		// TODO: FILL THIS IN!
 	}
 
