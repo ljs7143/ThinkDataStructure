@@ -71,6 +71,20 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 		@SuppressWarnings("unchecked")
 		Comparable<? super K> k = (Comparable<? super K>) target;
 		//트리의 한 가지 경로만 검색해야 하므로 트리의 높이에 비레한 시간이 걸린다
+		Node node = root;
+		while(node != null){
+			int cmp = k.compareTo(node.key);
+			if(cmp<0) {
+				node = node.left;
+			}
+			else if(cmp>0){
+				node = node.right;
+			}
+			else{
+				return node;
+			}
+
+		}
 
 
 
