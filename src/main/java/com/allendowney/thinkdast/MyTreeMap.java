@@ -20,8 +20,8 @@ import java.util.Set;
  */
 public class MyTreeMap<K, V> implements Map<K, V> {
 
-	private int size = 0;
-	private Node root = null;
+	private int size = 0;  //키의 개수를 추적
+	private Node root = null;  //트리의 루트 노드를 참조
 
 	/**
 	 * Represents a node in the tree.
@@ -70,6 +70,9 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 		// something to make the compiler happy
 		@SuppressWarnings("unchecked")
 		Comparable<? super K> k = (Comparable<? super K>) target;
+		//트리의 한 가지 경로만 검색해야 하므로 트리의 높이에 비레한 시간이 걸린다
+
+
 
 		// TODO: FILL THIS IN!
 		return null;
