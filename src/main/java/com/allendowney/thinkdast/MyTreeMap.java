@@ -147,7 +147,17 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 	public Set<K> keySet() {
 		Set<K> set = new LinkedHashSet<K>();
 		// TODO: FILL THIS IN!
+		addInOrder(root, set);
 		return set;
+	}
+
+	private void addInOrder(Node node, Set<K> set){
+		if(node == null){
+			return;
+		}
+		addInOrder(node.left, set);
+		set.add(node.key);
+		addInOrder(node.right, set);
 	}
 
 	@Override
