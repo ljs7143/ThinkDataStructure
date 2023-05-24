@@ -85,10 +85,6 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 			}
 
 		}
-
-
-
-		// TODO: FILL THIS IN!
 		return null;
 	}
 
@@ -111,8 +107,20 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 		return containsValueHelper(root, target);
 	}
 
-	private boolean containsValueHelper(Node node, Object target) {
+	private boolean containsValueHelper(Node node, Object target) { //모든 노드를 방문하므로 노드의 개수에 시간 비례
 		// TODO: FILL THIS IN!
+		if(node == null){
+			return false;  //node가 null이면 tree 바닥에 이른 것이므로 false반환
+		}
+		if(equals(target, node.value)){
+			return true; //찾았다면 true반환
+		}
+		if(containsValueHelper(node.left, target)){
+			return true;  //왼쪽 하위 트리에서 찾는 재귀호출. 찾으면 오른쪽 하위트리 탐색 X
+		}
+		if(containsValueHelper(node.right, target)){
+			return true; //오른쪽 하위트렝서 재귀호출. 찾지못하면 계속 진행
+		}
 		return false;
 	}
 
@@ -156,8 +164,32 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 	}
 
 	private V putHelper(Node node, K key, V value) {
-		// TODO: FILL THIS IN!
-		return null;
+
+		Comparable<? super K> k = (Comparable<? super K>) key;
+		int cmp  = k.compareTo(node.key);
+		if(cmp<0){
+			if(node.left == null){  //왼쪽 자식이 비어있으면 생성
+				node.left = new Node(key, value);
+				size ++;
+				return null; //생성 후 아무 작업도 수행하지 않는다는 것을 의미함
+
+			} else{
+				return putHelper(node.left, key, value);  //null이 아닐 시 재귀호출함 계속 반복하여 조건이 맞는 null부분에 새로 생성함
+			}
+		}
+		if(cmp >0){ //위와 같은 원리지만 오른쪽 자식을 targeting하여 코드 작성
+			if(node.right == null){
+				node.right = new Node(key, value);
+				size ++;
+				return null;
+			} else{
+				return putHelper(node.right, key, value);
+			}
+		}
+		V oldValue = node.value;   //. ex) oldValue = map.put("key1", 3);은 map의 key1에 매핑된 이전 값을 저장.
+		// 만약 map에 key1이 존재하지 않으면 oldValue는 null을 반환
+		node.value = value; //새로운 값 저장
+		return  oldValue;
 	}
 
 	@Override
