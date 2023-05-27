@@ -12,7 +12,7 @@ import java.net.URLDecoder;
 
 import redis.clients.jedis.Jedis;
 
-
+//제디스는 영속적임
 public class JedisMaker {
 
 	/**
